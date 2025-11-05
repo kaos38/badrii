@@ -1,0 +1,190 @@
+// KuberJi Mandir Database Schema
+// PostgreSQL with Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password      String
+  phone         String?
+  role          UserRole  @default(USER)
+  emailVerified Boolean   @default(false)
+  language      String    @default("en")
+  notifications Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  bookings      Booking[]
+  payments      Payment[]
+  
+  @@index([email])
+  @@map("users")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+  PRIEST
+}
+
+// Service Model
+model Service {
+  id            String    @id @default(uuid())
+  nameEn        String
+  nameHi        String
+  descriptionEn String    @db.Text
+  descriptionHi String    @db.Text
+  price         Float
+  duration      Int       // in minutes
+  category      ServiceCategory
+  benefitsEn    String[]
+  benefitsHi    String[]
+  availableSlots String[]
+  imageUrl      String?
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  bookings      Booking[]
+  
+  @@unique([nameEn, nameHi])
+  @@map("services")
+}
+
+enum ServiceCategory {
+  DAILY_AARTI
+  SPECIAL_POOJA
+  GRAND_CEREMONY
+  SEVA
+}
+
+// Booking Model
+model Booking {
+  id            String    @id @default(uuid())
+  userId        String
+  serviceId     String
+  bookingDate   DateTime
+  bookingTime   String
+  status        BookingStatus @default(PENDING)
+  amount        Float
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentId     String?
+  videoUrl      String?
+  notes         String?       @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relations
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  service       Service   @relation(fields: [serviceId], references: [id], onDelete: Restrict)
+  payment       Payment?
+  
+  @@index([userId])
+  @@index([serviceId])
+  @@index([bookingDate])
+  @@map("bookings")
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  REFUNDED
+  FAILED
+}
+
+// Payment Model
+model Payment {
+  id                String    @id @default(uuid())
+  bookingId         String    @unique
+  userId            String
+  amount            Float
+  currency          String    @default("INR")
+  paymentMethod     String
+  paymentGateway    PaymentGateway
+  gatewayPaymentId  String    @unique
+  gatewayOrderId    String
+  status            PaymentTransactionStatus @default(INITIATED)
+  receiptUrl        String?
+  receiptNumber     String?   @unique
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  // Relations
+  booking           Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([gatewayPaymentId])
+  @@map("payments")
+}
+
+enum PaymentGateway {
+  RAZORPAY
+  STRIPE
+  CASH
+}
+
+enum PaymentTransactionStatus {
+  INITIATED
+  SUCCESS
+  FAILED
+  REFUNDED
+}
+
+// Livestream Model
+model Livestream {
+  id            String    @id @default(uuid())
+  titleEn       String
+  titleHi       String
+  descriptionEn String?   @db.Text
+  descriptionHi String?   @db.Text
+  streamUrl     String
+  scheduledTime DateTime
+  status        LivestreamStatus @default(SCHEDULED)
+  viewCount     Int       @default(0)
+  recordingUrl  String?
+  thumbnailUrl  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([scheduledTime])
+  @@index([status])
+  @@map("livestreams")
+}
+
+enum LivestreamStatus {
+  SCHEDULED
+  LIVE
+  COMPLETED
+  CANCELLED
+}
+
+// Settings Model (for site-wide settings)
+model Setting {
+  id        String   @id @default(uuid())
+  key       String   @unique
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("settings")
+}
