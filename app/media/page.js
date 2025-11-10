@@ -96,7 +96,7 @@ export default function MediaPage() {
       <MyNav />
 
       {/* Hero Banner - Heritage Design */}
-      <section className="relative py-20 px-4 bg-ivory border-b border-sandalwood/10">
+      <section className="relative py-12 md:py-20 px-4 bg-ivory border-b border-sandalwood/10">
         {/* Subtle Pattern */}
         <div className="absolute inset-0 opacity-[0.015]">
           <div className="w-full h-full" style={{
@@ -106,21 +106,21 @@ export default function MediaPage() {
         </div>
 
         {/* Language Switcher */}
-        <div className="absolute top-6 right-6 z-20">
+        <div className="absolute top-4 md:top-6 right-4 md:right-6 z-20">
           <LanguageSwitcher />
         </div>
 
-        <div className="relative max-w-4xl mx-auto text-center space-y-4">
+        <div className="relative max-w-4xl mx-auto text-center space-y-3 md:space-y-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h1 className="text-5xl md:text-6xl font-light text-deep-brown tracking-wide" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-deep-brown tracking-wide" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
               {t('media.title')}
             </h1>
-            <p className="text-lg text-incense font-light max-w-2xl mx-auto" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
+            <p className="text-base md:text-lg text-incense font-light max-w-2xl mx-auto px-4" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
               {t('media.subtitle')}
             </p>
           </motion.div>
@@ -128,9 +128,9 @@ export default function MediaPage() {
       </section>
 
       {/* Category Filter */}
-      <div className="sticky top-20 z-40 bg-ivory shadow-sm py-6 border-b border-sandalwood/10">
+      <div className="sticky top-[72px] md:top-[80px] z-30 bg-ivory shadow-sm py-4 md:py-6 border-b border-sandalwood/10">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
             {categories.map((cat) => (
               <motion.button
                 key={cat.id}
@@ -138,7 +138,7 @@ export default function MediaPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2 }}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-6 py-2 rounded-sm font-light transition-all duration-300 ${
+                className={`px-4 md:px-6 py-2 text-sm md:text-base rounded-sm font-light transition-all duration-300 ${
                   selectedCategory === cat.id
                     ? "bg-sandalwood text-ivory shadow-sm"
                     : "bg-heritage-cream text-deep-brown hover:bg-sandalwood/10 border border-sandalwood/20"
@@ -153,10 +153,10 @@ export default function MediaPage() {
       </div>
 
       {/* Gallery Grid */}
-      <section className="py-16 px-4 max-w-7xl mx-auto">
+      <section className="py-8 md:py-16 px-4 max-w-7xl mx-auto">
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
         >
           <AnimatePresence mode="wait">
             {filteredImages.map((image, idx) => (
@@ -167,7 +167,7 @@ export default function MediaPage() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
-                className="relative h-80 rounded-sm overflow-hidden group cursor-pointer shadow-sm hover:shadow-md transition-shadow border border-sandalwood/10"
+                className="relative h-64 sm:h-72 md:h-80 rounded-sm overflow-hidden group cursor-pointer shadow-sm hover:shadow-md transition-shadow border border-sandalwood/10"
                 onClick={() => setSelectedImage(image)}
               >
                 <Image
@@ -178,8 +178,8 @@ export default function MediaPage() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-white font-light text-lg" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
+                  <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                    <h3 className="text-white font-light text-base md:text-lg" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
                       {t(image.titleKey)}
                     </h3>
                   </div>

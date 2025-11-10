@@ -37,7 +37,7 @@ export const Navbar = ({
     <motion.div
       ref={ref}
       // IMPORTANT: Change this to class of `fixed` if you want the navbar to be fixed
-      className={cn("sticky inset-x-0 top-20 z-40 w-full", className)}>
+      className={cn("sticky inset-x-0 top-0 z-50 w-full", className)}>
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
           ? React.cloneElement(child, { visible })
@@ -70,7 +70,7 @@ export const NavBody = ({
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60]  hidden w-full flex-row items-center justify-between self-start  bg-white px-4 py-2 lg:flex",
+        "relative z-50 hidden w-full flex-row items-center justify-between self-start bg-white px-4 py-2 lg:flex",
         className
       )}>
       {children}

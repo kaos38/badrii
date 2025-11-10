@@ -35,7 +35,7 @@ export default function Home() {
       <MyNav />
       
       {/* Hero Section - Enhanced Heritage Design */}
-      <section className="relative min-h-[600px] md:min-h-[700px] overflow-hidden bg-gradient-to-br from-ivory via-heritage-cream to-ivory">
+      <section className="relative min-h-[500px] sm:min-h-[600px] md:min-h-[700px] overflow-hidden bg-gradient-to-br from-ivory via-heritage-cream to-ivory">
         {/* Enhanced Heritage Pattern */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="w-full h-full" style={{
@@ -45,59 +45,59 @@ export default function Home() {
         </div>
         
         {/* Decorative Corner Elements */}
-        <div className="absolute top-0 left-0 w-32 h-32 opacity-10">
-          <div className="absolute inset-0 border-t-4 border-l-4 border-sandalwood rounded-tl-3xl"></div>
+        <div className="absolute top-0 left-0 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 opacity-10">
+          <div className="absolute inset-0 border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 border-sandalwood rounded-tl-3xl"></div>
         </div>
-        <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-          <div className="absolute inset-0 border-t-4 border-r-4 border-sandalwood rounded-tr-3xl"></div>
+        <div className="absolute top-0 right-0 w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32 opacity-10">
+          <div className="absolute inset-0 border-t-2 sm:border-t-4 border-r-2 sm:border-r-4 border-sandalwood rounded-tr-3xl"></div>
         </div>
 
         {/* Language Switcher - Fixed Position */}
-        <div className="absolute top-6 right-6 z-20">
+        <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20">
           <LanguageSwitcher />
         </div>
         
 
-        <div className="relative grid md:grid-cols-2 min-h-[600px] md:min-h-[700px]">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 min-h-[500px] sm:min-h-[600px] md:min-h-[700px]">
           {/* Left: Content */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="flex flex-col justify-center px-6 md:px-12 lg:px-20 py-20 bg-heritage-cream/90"
+            className="flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-20 py-12 sm:py-16 md:py-20 bg-heritage-cream/90"
           >
-            <div className="max-w-xl space-y-6">
+            <div className="max-w-xl space-y-4 sm:space-y-6">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="text-sandalwood text-xs font-light tracking-[0.3em] uppercase block"
+                className="text-sandalwood text-xs font-light tracking-[0.2em] sm:tracking-[0.3em] uppercase block"
                 style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}
               >
                 {t('home.subtitle')}
               </motion.span>
               
-              <h1 className="text-5xl md:text-7xl font-light text-deep-brown leading-tight tracking-wide" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-deep-brown leading-tight tracking-wide" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
                 {t('home.title')}
               </h1>
               
-              <p className="text-incense text-base md:text-lg leading-relaxed font-light">
+              <p className="text-incense text-sm sm:text-base md:text-lg leading-relaxed font-light">
                 {t('home.description')}
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Link href="/aarti-pooja">
-                  <button className="bg-sandalwood text-ivory px-8 py-3 rounded-sm font-light transition-all duration-300 hover:bg-deep-brown border border-sandalwood shadow-sm" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-4">
+                <Link href="/aarti-pooja" className="w-full sm:w-auto">
+                  <button className="w-full bg-sandalwood text-ivory px-6 sm:px-8 py-2.5 sm:py-3 rounded-sm font-light transition-all duration-300 hover:bg-deep-brown border border-sandalwood shadow-sm text-sm sm:text-base" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
                     {t('home.bookAarti')}
                   </button>
                 </Link>
-                <Link href="/howtoreachus">
-                  <button className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
+                <Link href="/howtoreachus" className="w-full sm:w-auto">
+                  <button className="w-full border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-sm font-light transition-all duration-300 text-sm sm:text-base" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
                     {t('home.planVisit')}
                   </button>
                 </Link>
-                <Link href="/about">
-                  <button className="border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-8 py-3 rounded-sm font-light transition-all duration-300" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
+                <Link href="/about" className="w-full sm:w-auto">
+                  <button className="w-full border border-sandalwood/30 text-deep-brown hover:bg-sandalwood/5 px-6 sm:px-8 py-2.5 sm:py-3 rounded-sm font-light transition-all duration-300 text-sm sm:text-base" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
                     {t('home.learnMore')}
                   </button>
                 </Link>
@@ -110,7 +110,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 1.02 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="relative min-h-[400px] md:min-h-full"
+            className="relative min-h-[300px] sm:min-h-[400px] md:min-h-full"
           >
             <Image
               src="/images/kuberji/kuberji1.jpeg"
@@ -125,9 +125,9 @@ export default function Home() {
       </section>
 
       {/* Stats Section - Enhanced with Cards */}
-      <section className="py-20 bg-gradient-to-b from-sandalwood/5 via-ivory to-white border-y border-sandalwood/10">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-sandalwood/5 via-ivory to-white border-y border-sandalwood/10">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {[
               { number: "1000+", label: language === 'hi' ? "वर्षों की विरासत" : "Years of Heritage", icon: "📿" },
               { number: "365", label: language === 'hi' ? "दिनों की प्रार्थना" : "Days of Prayer", icon: "🙏" },
@@ -141,15 +141,15 @@ export default function Home() {
                 transition={{ duration: 0.4, delay: idx * 0.05 }}
                 viewport={{ once: true, amount: 0.3 }}
                 whileHover={{ y: -5, scale: 1.02 }}
-                className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 border border-sandalwood/10 group"
+                className="bg-white rounded-lg p-4 sm:p-5 md:p-6 text-center shadow-md hover:shadow-xl transition-all duration-300 border border-sandalwood/10 group"
               >
-                <div className="text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                <div className="text-2xl sm:text-3xl mb-2 group-hover:scale-110 transition-transform duration-300">
                   {stat.icon}
                 </div>
-                <div className="text-4xl md:text-5xl font-light text-sandalwood mb-2 group-hover:text-deep-brown transition-colors" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-sandalwood mb-1 sm:mb-2 group-hover:text-deep-brown transition-colors" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'Cormorant Garamond, serif' }}>
                   {stat.number}
                 </div>
-                <div className="text-sm md:text-base text-incense font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
+                <div className="text-xs sm:text-sm md:text-base text-incense font-light" style={{ fontFamily: language === 'hi' ? 'Noto Serif Devanagari, serif' : 'inherit' }}>
                   {stat.label}
                 </div>
               </motion.div>
@@ -159,15 +159,15 @@ export default function Home() {
       </section>
 
       {/* About Section - Minimal */}
-      <section className="py-20 px-4 max-w-6xl mx-auto bg-white">
+      <section className="py-12 sm:py-16 md:py-20 px-4 max-w-6xl mx-auto bg-white">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true, amount: 0.2 }}
-          className="grid md:grid-cols-2 gap-12 items-center"
+          className="grid md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center"
         >
-          <div className="relative h-[400px] md:h-[500px] rounded overflow-hidden shadow-xl order-2 md:order-1">
+          <div className="relative h-[300px] sm:h-[400px] md:h-[500px] rounded overflow-hidden shadow-xl order-2 md:order-1">
             <Image
               src="/images/milkbath2.jpeg"
               alt="Temple Ceremony"
