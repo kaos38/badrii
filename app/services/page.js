@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { getTranslation } from '@/lib/translations';
@@ -48,13 +49,26 @@ export default function ServicesPage() {
         : `/api/services?category=${selectedCategory}&active=true`;
       
       const response = await fetch(url);
+      
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (!contentType || !contentType.includes('application/json')) {
+        console.error('API returned non-JSON response');
+        setServices([]);
+        return;
+      }
+      
       const data = await response.json();
       
       if (data.success) {
-        setServices(data.services);
+        setServices(data.services || []);
+      } else {
+        console.error('API error:', data.error);
+        setServices([]);
       }
     } catch (error) {
       console.error('Error fetching services:', error);
+      setServices([]);
     } finally {
       setLoading(false);
     }

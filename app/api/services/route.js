@@ -1,12 +1,24 @@
 // Get All Services API
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, isDatabaseConfigured } from '@/lib/prisma';
 
 // Cache configuration
 const CACHE_DURATION = 300; // 5 minutes in seconds
 
 export async function GET(request) {
   try {
+    // Check if database is configured
+    if (!isDatabaseConfigured()) {
+      return NextResponse.json(
+        { 
+          success: true, 
+          services: [],
+          message: 'Database not configured. Please contact administrator.' 
+        },
+        { status: 200 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const category = searchParams.get('category');
     const isActive = searchParams.get('active');
@@ -59,9 +71,15 @@ export async function GET(request) {
     return response;
   } catch (error) {
     console.error('Fetch services error:', error);
+    
+    // Return proper JSON error instead of letting Next.js render HTML error page
     return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
+      { 
+        success: false, 
+        services: [],
+        error: error.message || 'Internal server error' 
+      },
+      { status: 200 } // Return 200 to avoid triggering error page
     );
   }
 }
