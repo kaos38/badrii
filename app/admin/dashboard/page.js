@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
@@ -24,24 +24,7 @@ export default function AdminDashboard() {
   const [editingContent, setEditingContent] = useState(null);
   const [contentFilter, setContentFilter] = useState('ALL');
 
-  useEffect(() => {
-    verifyAuth();
-  }, []);
-
-  useEffect(() => {
-    if (user && activeSection === 'overview') {
-      fetchStats();
-    } else if (user && activeSection === 'bookings') {
-      fetchBookings();
-    } else if (user && activeSection === 'users') {
-      fetchUsers();
-    } else if (user && activeSection === 'content') {
-      fetchContents();
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSection, user, contentFilter]);
-
-  const verifyAuth = async () => {
+  const verifyAuth = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/verify');
       if (response.ok) {
@@ -55,7 +38,24 @@ export default function AdminDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    verifyAuth();
+  }, [verifyAuth]);
+
+  useEffect(() => {
+    if (user && activeSection === 'overview') {
+      fetchStats();
+    } else if (user && activeSection === 'bookings') {
+      fetchBookings();
+    } else if (user && activeSection === 'users') {
+      fetchUsers();
+    } else if (user && activeSection === 'content') {
+      fetchContents();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSection, user, contentFilter]);
 
   const fetchStats = async () => {
     setLoadingData(true);
@@ -459,7 +459,7 @@ export default function AdminDashboard() {
                   <div className="text-center py-12 text-incense">
                     <div className="text-6xl mb-4">📝</div>
                     <p className="text-lg mb-2">No content items found</p>
-                    <p className="text-sm">Click "Add New Content" to create your first content item</p>
+                    <p className="text-sm">Click &quot;Add New Content&quot; to create your first content item</p>
                   </div>
                 ) : (
                   <div className="overflow-x-auto">
